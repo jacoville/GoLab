@@ -10,6 +10,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gorilla/mux"
@@ -104,7 +105,8 @@ func encrypt(w http.ResponseWriter, r *http.Request) {
 	key := "123456789012345678901234"
 
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(`{"message": "encrypt called", "result":"` + EncryptMessage(key, m.Content) + `"}`))
+	status := strconv.Itoa(http.StatusCreated)
+	w.Write([]byte(`{"status":"` + status + `", "message": "encrypt called", "result":"` + EncryptMessage(key, m.Content) + `"}`))
 
 }
 
@@ -193,7 +195,8 @@ func decrypt(w http.ResponseWriter, r *http.Request) {
 	key := "123456789012345678901234"
 
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(`{"message": "decrypt called", "result":"` + DecryptMessage(key, m.Content) + `"}`))
+	status := strconv.Itoa(http.StatusCreated)
+	w.Write([]byte(`{"status":"` + status + `", "message": "decrypt called", "result":"` + DecryptMessage(key, m.Content) + `"}`))
 
 }
 
